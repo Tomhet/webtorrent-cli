@@ -60,6 +60,7 @@ const argv = minimist(process.argv.slice(2), {
     'iina',
     'mplayer',
     'mpv',
+    'mpvnet',
     'vlc',
     'xbmc',
 
@@ -130,6 +131,7 @@ if (process.env.DEBUG) {
 let IINA_EXEC = '/Applications/IINA.app/Contents/MacOS/iina-cli --keep-running'
 let MPLAYER_EXEC = 'mplayer -really-quiet -noidx -loop 0'
 let MPV_EXEC = 'mpv --really-quiet --loop=no'
+let MPVNET_EXEC = 'mpvnet --really-quiet --loop=no'
 let OMX_EXEC = `lxterminal -e omxplayer -r --timeout 60 --no-ghost-box --align center -o ${typeof argv.omx === 'string' ? argv.omx : 'hdmi'}`
 
 let subtitlesServer
@@ -139,6 +141,7 @@ if (argv.subtitles) {
   VLC_ARGS += ` --sub-file=${subtitles}`
   MPLAYER_EXEC += ` -sub ${subtitles}`
   MPV_EXEC += ` --sub-file=${subtitles}`
+  MPVNET_EXEC += ` --sub-file=${subtitles}`
   OMX_EXEC += ` --subtitles ${subtitles}`
 
   subtitlesServer = http.createServer(ecstatic({
@@ -156,6 +159,7 @@ if (!argv['not-on-top']) {
   VLC_ARGS += ' --video-on-top'
   MPLAYER_EXEC += ' -ontop'
   MPV_EXEC += ' --ontop'
+  MPVNET_EXEC += ' --ontop'
 }
 
 function checkPermission (filename) {
@@ -190,13 +194,15 @@ const playerName = argv.airplay !== false
           ? 'MPlayer'
           : argv.mpv !== false
             ? 'mpv'
-            : argv.omx !== false
-              ? 'OMXPlayer'
-              : argv.vlc !== false
-                ? 'VLC'
-                : argv.xbmc !== false
-                  ? 'XBMC'
-                  : null
+            : argv.mpvnet!== false
+              ? 'mpv.net'
+              : argv.omx !== false
+                ? 'OMXPlayer'
+                : argv.vlc !== false
+                  ? 'VLC'
+                  : argv.xbmc !== false
+                    ? 'XBMC'
+                    : null
 
 const command = argv._[0]
 
@@ -250,7 +256,7 @@ function processInputs (inputs) {
   // These arguments do not make sense when downloading multiple torrents, or
   // seeding multiple files/folders.
   const invalidArguments = [
-    'airplay', 'chromecast', 'dlna', 'mplayer', 'mpv', 'omx', 'vlc', 'iina', 'xbmc',
+    'airplay', 'chromecast', 'dlna', 'mplayer', 'mpv', 'mpvnet', 'omx', 'vlc', 'iina', 'xbmc',
     'stdout', 'select', 'subtitles'
   ]
 
@@ -302,6 +308,7 @@ function runHelp () {
       --iina                    IINA
       --mplayer                 MPlayer
       --mpv                     MPV
+      --mpvnet                  MPV.net
       --omx [jack]              omx [default: hdmi]
       --vlc                     VLC
       --xbmc                    XBMC
@@ -538,6 +545,8 @@ function runDownload (torrentId) {
       openPlayer(`${MPLAYER_EXEC} "${href}"`)
     } else if (argv.mpv) {
       openPlayer(`${MPV_EXEC} "${href}"`)
+    } else if (argv.mpvnet) {
+      openPlayer(`${MPVNET_EXEC} "${href}"`)
     } else if (argv.omx) {
       openPlayer(`${OMX_EXEC} "${href}"`)
     }
