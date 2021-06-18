@@ -163,10 +163,7 @@ if (!argv['not-on-top']) {
   MPLAYER_EXEC += ' -ontop'
   MPV_EXEC += ' --ontop'
   MPVNET_EXEC += ' --ontop'
-<<<<<<< HEAD
   SMPLAYER_EXEC += ' -ontop'
-=======
->>>>>>> 1de09c83ccee423a1f59788d6baf142d8fae7031
 }
 
 function checkPermission (filename) {
@@ -209,13 +206,9 @@ const playerName = argv.airplay !== false
                   ? 'VLC'
                   : argv.xbmc !== false
                     ? 'XBMC'
-<<<<<<< HEAD
                     : argv.smplayer !== false
                       ? 'SMPLAYER'
                       : null
-=======
-                    : null
->>>>>>> 1de09c83ccee423a1f59788d6baf142d8fae7031
 
 const command = argv._[0]
 
@@ -269,11 +262,7 @@ function processInputs (inputs) {
   // These arguments do not make sense when downloading multiple torrents, or
   // seeding multiple files/folders.
   const invalidArguments = [
-<<<<<<< HEAD
     'airplay', 'chromecast', 'dlna', 'mplayer', 'mpv', 'mpvnet', 'omx', 'vlc', 'iina', 'xbmc', 'smplayer',
-=======
-    'airplay', 'chromecast', 'dlna', 'mplayer', 'mpv', 'mpvnet', 'omx', 'vlc', 'iina', 'xbmc',
->>>>>>> 1de09c83ccee423a1f59788d6baf142d8fae7031
     'stdout', 'select', 'subtitles'
   ]
 
