@@ -9,6 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
       with:
+        persist-credentials: false
         fetch-depth: 10  # greater than the number of commits you made
     - uses: tomhet/rebase-upstream-action@master
       with:  # all args are optional
