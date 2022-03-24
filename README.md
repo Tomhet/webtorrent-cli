@@ -1,3 +1,16 @@
+# Fork Information
+
+ - Added [mpv.net](https://github.com/stax76/mpv.net) support
+
+```bash
+Options (streaming):
+      --mpvnet     mpv.net                                                               [boolean]
+```
+### Install Fork
+```bash
+npm install git+https://github.com/tomhet/webtorrent-cli -g
+```
+---
 <h1 align="center">
   <br>
   <a href="https://webtorrent.io"><img src="https://webtorrent.io/img/WebTorrent.png" alt="WebTorrent" width="200"></a>
